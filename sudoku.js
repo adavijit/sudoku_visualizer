@@ -1,8 +1,16 @@
 const URL = `https://sugoku.herokuapp.com/board?difficulty=easy`;
 
+let delay = ms =>
+	new Promise(function(resolve, reject) {
+		setTimeout(function() {
+			resolve();
+		}, ms);
+	});
+
 function Sudoku(root, speed = 50) {
 	this.board = [];
 	this.boardSize = 4;
+	this.emptyCells = [];
 	this.speed = speed;
 	this.generate(root);
 }
@@ -22,6 +30,9 @@ Sudoku.prototype.createCell = function(x, y, value) {
 		input.disabled = true;
 		input.value = value;
 		input.style.fontWeight = 600;
+	} else {
+		cell.style.background = "#fff";
+		input.style.background = "#fff";
 	}
 	cell.id = `cell-${x}-${y}`;
 	cell.appendChild(input);
@@ -40,9 +51,14 @@ Sudoku.prototype.generateBoard = function() {
 	for (let i = 0; i < this.boardSize; ++i) {
 		let row = document.createElement("tr");
 		row.classList.add("row");
+
 		for (let j = 0; j < this.boardSize; ++j) {
+			if (this.board[i][j] === 0) {
+				this.emptyCells.push({ x: i, y: j });
+			}
 			row.appendChild(sudoku.createCell(i, j, this.board[i][j]));
 		}
+
 		tbody.appendChild(row);
 	}
 	root.appendChild(table);
@@ -68,6 +84,20 @@ Sudoku.prototype.generate = function(root) {
 			this.generateBoard();
 		})
 		.catch(err => console.log(err));
+};
+
+Sudoku.prototype.checkCells = async function() {
+	for (let i = 0; i < this.emptyCells.length; ++i) {
+		let { x, y } = this.emptyCells[i];
+		if (this.board[x][y] === 0) continue;
+		if (!this.isCorrect(x, y)) {
+			let cell = document.querySelector(`#cell-${x}-${y}`);
+			cell.style.background = "red";
+			await delay(800);
+			cell.style.background = "#fff";
+			break;
+		}
+	}
 };
 
 Sudoku.prototype.checkRow = function(x, y) {

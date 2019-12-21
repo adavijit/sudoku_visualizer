@@ -1,10 +1,3 @@
-let delay = ms =>
-	new Promise(function(resolve, reject) {
-		setTimeout(function() {
-			resolve();
-		}, ms);
-	});
-
 const root = document.getElementById("root");
 const generateBtn = document.querySelector("#generate");
 const checkBtn = document.querySelector("#check");
@@ -32,9 +25,9 @@ generateBtn.addEventListener("click", function(event) {
 	checkBtn.disabled = false;
 });
 
-// checkBtn.addEventListener("click", function() {
-// 	sudoku.check();
-// });
+checkBtn.addEventListener("click", function() {
+	sudoku.checkCells();
+});
 
 solveBtn.addEventListener("click", async function() {
 	generateBtn.disabled = true;
