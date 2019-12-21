@@ -1,10 +1,15 @@
 const URL = `https://sugoku.herokuapp.com/board?difficulty=easy`;
 
-function Sudoku(root) {
-	this.boardSize = 4;
+function Sudoku(root, speed = 50) {
 	this.board = [];
+	this.boardSize = 4;
+	this.speed = speed;
 	this.generate(root);
 }
+
+Sudoku.prototype.changeSpped = function(value) {
+	this.speed = value;
+};
 
 Sudoku.prototype.createCell = function(x, y, value) {
 	let cell = document.createElement("td");
@@ -133,7 +138,7 @@ Sudoku.prototype.solve = async function() {
 			continue;
 		}
 
-		await delay(50);
+		await delay((this.speed / 100) * 100);
 		inputCell.value = i;
 		inputCell.style.color = "green";
 

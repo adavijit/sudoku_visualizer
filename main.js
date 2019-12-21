@@ -9,8 +9,10 @@ const root = document.getElementById("root");
 const generateBtn = document.querySelector("#generate");
 const checkBtn = document.querySelector("#check");
 const solveBtn = document.querySelector("#solve");
+const speedRange = document.querySelector("#range");
 
 let sudoku = new Sudoku(root);
+let speed = 40;
 
 root.addEventListener("input", function(event) {
 	let value = event.data;
@@ -21,7 +23,13 @@ root.addEventListener("input", function(event) {
 
 generateBtn.addEventListener("click", function(event) {
 	event.preventDefault();
-	sudoku = new Sudoku(root);
+	solveBtn.disabled = true;
+	checkBtn.disabled = true;
+
+	sudoku = new Sudoku(root, speed);
+
+	solveBtn.disabled = false;
+	checkBtn.disabled = false;
 });
 
 // checkBtn.addEventListener("click", function() {
@@ -29,12 +37,20 @@ generateBtn.addEventListener("click", function(event) {
 // });
 
 solveBtn.addEventListener("click", async function() {
-	// console.log(array);
+	generateBtn.disabled = true;
+	checkBtn.disabled = true;
+	speedRange.disabled = true;
+
 	await sudoku.solve();
-	// console.log(sudoku.board);
+
+	generateBtn.disabled = false;
+	checkBtn.disabled = false;
+	speedRange.disabled = false;
 });
 
-// sudoku.generate(root);
+speedRange.addEventListener("change", function(event) {
+	speed = event.target.value;
+});
 
 //   let board = new Array(boardSize);
 //   for (let i = 0; i < boardSize; ++i) {
