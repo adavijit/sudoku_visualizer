@@ -166,7 +166,10 @@ Sudoku.prototype.solve = async function() {
 			continue;
 		}
 
-		await delay((this.speed / 100) * 100);
+		if (this.speed !== 0) {
+			await delay(this.speed);
+		}
+
 		inputCell.value = i;
 		inputCell.style.color = "green";
 

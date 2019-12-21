@@ -14,7 +14,7 @@ let sudoku = new Sudoku(root, `${URL}${difficuly}`, speed);
 
 root.addEventListener("input", function(event) {
 	let value = event.data;
-	console.log(event);
+	// console.log(event);
 	let { x, y } = event.target.dataset;
 	sudoku.changeCellValue(x, y, value);
 });
@@ -40,6 +40,7 @@ solveBtn.addEventListener("click", async function() {
 	speedRange.disabled = true;
 	solveBtn.disabled = true;
 
+	// console.log("sudo speed ", sudoku.speed);
 	await sudoku.solve();
 
 	let cells = root.querySelectorAll("input");
@@ -51,9 +52,9 @@ solveBtn.addEventListener("click", async function() {
 });
 
 speedRange.addEventListener("change", function(event) {
-	speed = event.target.value;
-	sudoku.changeSpeed(parseInt(speed, 10));
-	console.log(speed);
+	speed = parseInt(event.target.value, 10);
+	sudoku.changeSpeed(speed);
+	// console.log(speed);
 });
 
 diffMenu.addEventListener("click", function(event) {
