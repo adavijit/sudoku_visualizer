@@ -1,5 +1,3 @@
-const URL = `https://sugoku.herokuapp.com/board?difficulty=easy`;
-
 let delay = ms =>
 	new Promise(function(resolve, reject) {
 		setTimeout(function() {
@@ -7,15 +5,15 @@ let delay = ms =>
 		}, ms);
 	});
 
-function Sudoku(root, speed = 50) {
+function Sudoku(root, url, speed = 50) {
 	this.board = [];
 	this.boardSize = 4;
 	this.emptyCells = [];
 	this.speed = speed;
-	this.generate(root);
+	this.generate(root, url);
 }
 
-Sudoku.prototype.changeSpped = function(value) {
+Sudoku.prototype.changeSpeed = function(value) {
 	this.speed = value;
 };
 
@@ -74,9 +72,9 @@ Sudoku.prototype.changeCellValue = function(x, y, value) {
 	this.board[x][y] = value;
 };
 
-Sudoku.prototype.generate = function(root) {
+Sudoku.prototype.generate = function(root, url) {
 	root.innerHTML = "";
-	fetch(URL)
+	fetch(url)
 		.then(res => res.json())
 		.then(({ board }) => {
 			this.board = board.map(ar => [...ar]);

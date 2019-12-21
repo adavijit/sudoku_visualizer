@@ -1,13 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Cuprum|PT+Mono|Playfair+Display&display=swap");
+
 *,
 *::before,
 *::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: sans-serif;
 }
 
-input {
+body {
+	min-height: 100vh;
+	font-family: "PT Mono", monospace;
+	background: #f3f1f1;
+}
+
+#root input {
 	width: 20px;
 	height: 20px;
 	text-align: center;
@@ -15,6 +22,7 @@ input {
 	color: #000;
 	outline: none;
 	border: none;
+	font-family: "Playfair Display", serif;
 }
 
 .brand {
@@ -24,8 +32,8 @@ input {
 	line-height: 50px;
 	text-align: center;
 	text-transform: uppercase;
-	font-size: 1.2rem;
-	font-weight: 600;
+	font-size: 1.5em;
+	font-weight: 700;
 	letter-spacing: 0.05rem;
 }
 
@@ -39,7 +47,9 @@ td {
 	border: 1px solid;
 	background: rgb(201, 200, 200);
 	text-align: center;
+	font-family: "Playfair Display", serif;
 }
+
 td:first-child {
 	border-left: solid;
 }
@@ -63,39 +73,117 @@ tr:first-child {
 }
 
 .menu {
+	height: 10vh;
 	padding: 10px;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
+	background: rgb(172, 174, 175);
 }
 
-#size-box {
+#main-btn button {
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 8px 10px;
+	border-radius: 8px;
+	background: rgb(71, 203, 255);
+	color: azure;
+	font-weight: 600;
+	/* letter-spacing: 0.08em; */
+	text-transform: uppercase;
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+#main-btn button:hover {
+	box-shadow: none;
+}
+
+#main-btn button:disabled {
+	color: rgb(71, 203, 255);
+	box-shadow: none;
+}
+
+#level {
 	position: relative;
-	height: 15px;
-	width: 30px;
+	display: flex;
+	/* transition: 500ms linear; */
 }
 
-#size-box::before {
-	content: "";
-	position: absolute;
-	width: 15px;
-	height: 15px;
-	left: 0;
-	background: aqua;
+#diff-tip {
+	position: relative;
+	min-width: 70px;
+	height: 20px;
+	margin: auto 0 auto 10px;
+	background: white;
+	text-align: center;
+	font-size: 0.8em;
+	font-weight: 600;
+	line-height: 20px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
-#size-box::after {
+
+#diff-tip::before {
 	content: "";
 	position: absolute;
-	width: 15px;
-	height: 15px;
-	right: 0;
-	background: rgb(247, 0, 255);
+	height: 10px;
+	width: 10px;
+	top: 50%;
+	left: -3px;
+	transform: translateY(-50%) rotate(45deg);
+	background: white;
+}
+
+#diff-btn {
+	display: inline-block;
+	border: none;
+	background: black;
+	color: white;
+	padding: 8px 20px;
+	outline: none;
+	cursor: pointer;
+	min-width: 100px;
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+#diff-menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background: black;
+	color: white;
+	min-width: 150px;
+	box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+#level:hover #diff-menu {
+	display: block;
+}
+
+#diff-menu a {
+	text-decoration: none;
+	padding: 10px;
+	border: none;
+	display: block;
+	color: azure;
+}
+
+#diff-menu a:hover {
+	background: white;
+	color: #000;
 }
 
 #speed {
-	width: 200px;
+	position: relative;
+	width: 280px;
 	text-align: center;
+	display: flex;
 }
+
 #range {
 	width: 100%;
 	height: 3px;
@@ -103,6 +191,7 @@ tr:first-child {
 	-webkit-appearance: none;
 	outline: none;
 	border-radius: 3px;
+	margin: auto 0;
 }
 
 #range::-webkit-slider-thumb {
@@ -110,5 +199,42 @@ tr:first-child {
 	height: 15px;
 	width: 15px;
 	border-radius: 50%;
-	background: blueviolet;
+	background: rgb(255, 255, 255);
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+}
+
+#speed-tip {
+	position: relative;
+	background: white;
+	min-width: 60px;
+	height: 20px;
+	margin: auto 0 auto 20px;
+	font-size: 0.8em;
+	font-weight: 600;
+	text-align: center;
+	line-height: 20px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+#speed-tip::before {
+	content: "";
+	position: absolute;
+	background: white;
+	height: 10px;
+	width: 10px;
+	top: 50%;
+	left: -4px;
+	transform: translateY(-50%) rotate(45deg);
+}
+
+#root {
+	height: calc(90vh - 50px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#root table {
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5);
 }

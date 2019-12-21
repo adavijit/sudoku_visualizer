@@ -10,19 +10,22 @@
 	<body>
 		<div class="brand">Sudoku</div>
 		<div class="menu">
-			<button id="generate">Generate</button>
-			<button id="check">Check</button>
-			<button id="solve">Solve</button>
-			<div id="board-size">
-				size
-				<div id="size-box"></div>
+			<div id="main-btn">
+				<button id="generate">Generate</button>
+				<button id="check">Check</button>
+				<button id="solve">Solve</button>
 			</div>
 			<div id="level">
-				Level
+				<button id="diff-btn">Difficulty</button>
+				<div id="diff-menu">
+					<a href="#">Easy</a>
+					<a href="#">Medium</a>
+					<a href="#">Hard</a>
+					<a href="#">Random</a>
+				</div>
+				<span id="diff-tip">Random</span>
 			</div>
 			<div id="speed">
-				speed
-				<!-- <span id="range-value"></span> -->
 				<input
 					type="range"
 					name="range"
@@ -31,6 +34,7 @@
 					max="100"
 					value="40"
 				/>
+				<span id="speed-tip">Speed</span>
 			</div>
 		</div>
 

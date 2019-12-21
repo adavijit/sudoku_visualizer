@@ -3,9 +3,14 @@ const generateBtn = document.querySelector("#generate");
 const checkBtn = document.querySelector("#check");
 const solveBtn = document.querySelector("#solve");
 const speedRange = document.querySelector("#range");
+const diffMenu = document.querySelector("#diff-menu");
+const diffTip = document.querySelector("#diff-tip");
 
-let sudoku = new Sudoku(root);
-let speed = 40;
+const URL = `https://sugoku.herokuapp.com/board?difficulty=`;
+
+let difficuly = "random";
+let speed = 50;
+let sudoku = new Sudoku(root, `${URL}${difficuly}`, speed);
 
 root.addEventListener("input", function(event) {
 	let value = event.data;
@@ -19,7 +24,7 @@ generateBtn.addEventListener("click", function(event) {
 	solveBtn.disabled = true;
 	checkBtn.disabled = true;
 
-	sudoku = new Sudoku(root, speed);
+	sudoku = new Sudoku(root, `${URL}${difficuly}`, speed);
 
 	solveBtn.disabled = false;
 	checkBtn.disabled = false;
@@ -33,8 +38,12 @@ solveBtn.addEventListener("click", async function() {
 	generateBtn.disabled = true;
 	checkBtn.disabled = true;
 	speedRange.disabled = true;
+	solveBtn.disabled = true;
 
 	await sudoku.solve();
+
+	let cells = root.querySelectorAll("input");
+	cells.forEach(c => (c.style.color = "#000"));
 
 	generateBtn.disabled = false;
 	checkBtn.disabled = false;
@@ -43,18 +52,12 @@ solveBtn.addEventListener("click", async function() {
 
 speedRange.addEventListener("change", function(event) {
 	speed = event.target.value;
+	sudoku.changeSpeed(parseInt(speed, 10));
+	console.log(speed);
 });
 
-//   let board = new Array(boardSize);
-//   for (let i = 0; i < boardSize; ++i) {
-//     board[i] = new Array(boardSize);
-//     board[i].fill(0);
-//   }
-
-//   response.forEach(({ x, y, value }) => (board[x][y] = value));
-//   for (let i = 0; i < boardSize; ++i) {
-//     for (let j = 0; j < boardSize; ++j) {
-//         process.stdout.write(board[i][j] + " ");
-//     }
-//     process.stdout.write("\n");
-//   }
+diffMenu.addEventListener("click", function(event) {
+	let value = event.target.text;
+	diffTip.innerText = value;
+	difficuly = value.toLowerCase();
+});
