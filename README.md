@@ -1,7 +1,5 @@
-# sudoku_visualizer
+## sudoku_visualizer
 
-## https://sudoku.supriyanta.now.sh/
+> A Sudoku solving web app, which helps to visualize how Backtracking algorithm used to solve a Sudoku.
 
-update readme
-add options in menu
-deploy
+#### Hosted [here](https://sudoku.supriyanta.now.sh)
