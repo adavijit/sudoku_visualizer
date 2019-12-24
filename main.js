@@ -8,7 +8,7 @@ const diffTip = document.querySelector("#diff-tip");
 
 const URL = `https://sugoku.herokuapp.com/board?difficulty=`;
 
-let difficuly = "random";
+let difficuly = "easy";
 let speed = 50;
 let sudoku = new Sudoku(root, `${URL}${difficuly}`, speed);
 
